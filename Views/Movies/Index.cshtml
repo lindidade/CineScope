@@ -1,80 +1,46 @@
 ﻿@model IEnumerable<CineScope.Models.Movie>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<div class="bg-gray-900 min-h-screen p-8">
+    <h1 class="text-4xl font-bold text-white mb-8">🎬 CineScope</h1>
+    
+    <form method="get" asp-action="Index" class="mb-8">
+        <div class="flex gap-2">
+            <input type="text" name="searchString"
+                   class="bg-gray-800 text-white rounded-lg px-4 py-2 w-96 border border-gray-600"
+                   placeholder="Sök efter film..." />
+            <button type="submit"
+                    class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700">
+                Sök
+            </button>
+        </div>
+    </form>
 
-<h1>Index</h1>
+    <a asp-action="Create"
+           class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 mb-8 inline-block">
+        + Lägg till film
+    </a>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form method="get" asp-action="Index">
-    <div class="d-flex mb-3">
-        <input type="text" name="searchString"
-               class="form-control me-2"
-               placeholder="Sök efter film..." />
-        <button type="submit" class="btn btn-primary">Sök</button>
-    </div>
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PosterUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseYear)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PosterUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            <div class="bg-gray-800 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                <img src="@item.PosterUrl" alt="@item.Title"
+                     class="w-full h-64 object-cover"
+                     onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'" />
+                <div class="p-4">
+                    <h2 class="text-white font-bold text-lg">@item.Title</h2>
+                    <p class="text-gray-400 text-sm">@item.Genre • @item.ReleaseYear</p>
+                    <p class="text-yellow-400 text-sm">⭐ @item.Rating</p>
+                    <div class="flex gap-2 mt-3">
+                        <a asp-action="Edit" asp-route-id="@item.Id"
+                           class="text-blue-400 hover:text-blue-300 text-sm">Redigera</a>
+                        <a asp-action="Details" asp-route-id="@item.Id"
+                           class="text-green-400 hover:text-green-300 text-sm">Detaljer</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"
+                           class="text-red-400 hover:text-red-300 text-sm">Radera</a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

@@ -290,3 +290,35 @@ body {
         border-color: var(--cs-orange);
         color: var(--cs-orange);
     }
+/* =============================================
+   GENREFILTER
+   ============================================= */
+.cs-filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.cs-filter-btn {
+    background: var(--cs-card-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cs-text-muted);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+    .cs-filter-btn:hover {
+        border-color: var(--cs-orange);
+        color: var(--cs-orange);
+    }
+
+    .cs-filter-btn.active {
+        background: var(--cs-red);
+        border-color: var(--cs-red);
+        color: #fff;
+    }

@@ -20,15 +20,22 @@ namespace CineScope.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string search, string genre)
         {
-            var movies = from m in _context.Movies
-                         select m;
+            var movies = _context.Movies.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(search))
             {
-                movies = movies.Where(m => m.Title.Contains(searchString));
+                movies = movies.Where(m => m.Title.Contains(search));
             }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                movies = movies.Where(m => m.Genre == genre);
+            }
+
+            ViewData["CurrentSearch"] = search;
+            ViewData["CurrentGenre"] = genre;
 
             return View(await movies.ToListAsync());
         }

@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<CineScope.Models.Movie>
 @{
     ViewData["Title"] = "Filmer";
+    var genres = Model.Select(m => m.Genre).Distinct().OrderBy(g => g).ToList();
+    string currentGenre = ViewData["CurrentGenre"] as string ?? "";
+    string currentSearch = ViewData["CurrentSearch"] as string ?? "";
 }
 
 <div class="cs-page-header">
@@ -10,12 +13,25 @@
     </a>
 </div>
 
+<!-- Genrefilter -->
+<div class="cs-filter-bar">
+    <a href="@Url.Action("Index", "Movies")"
+       class="cs-filter-btn @(string.IsNullOrEmpty(currentGenre) ? "active" : "")">
+        Alla
+    </a>
+    @foreach (var genre in genres)
+    {
+        <a href="@Url.Action("Index", "Movies", new { genre = genre })"
+           class="cs-filter-btn @(currentGenre == genre ? "active" : "")">
+            @genre
+        </a>
+    }
+</div>
+
 <div class="cs-movie-grid">
     @foreach (var movie in Model)
     {
         <div class="cs-movie-card">
-
-            <!-- Poster -->
             <div class="cs-poster">
                 <img src="@movie.PosterUrl" alt="@movie.Title"
                      onerror="this.src='/img/no-poster.jpg'" />
@@ -23,8 +39,6 @@
                     ★ @movie.Rating
                 </div>
             </div>
-
-            <!-- Info -->
             <div class="cs-card-body">
                 <h3 class="cs-card-title">@movie.Title</h3>
                 <div class="cs-card-meta">
@@ -33,14 +47,12 @@
                     <span>@movie.Duration min</span>
                 </div>
                 <p class="cs-card-desc">@movie.Description</p>
-
                 <div class="cs-card-actions">
                     <a asp-action="Details" asp-route-id="@movie.Id" class="cs-btn-red">Detaljer</a>
                     <a asp-action="Edit" asp-route-id="@movie.Id" class="cs-btn-outline">Redigera</a>
                     <a asp-action="Delete" asp-route-id="@movie.Id" class="cs-btn-outline">Ta bort</a>
                 </div>
             </div>
-
         </div>
     }
 </div>

@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using CineScope.Models;
 
 namespace CineScope.Data
 {
-    public class CineScopeDbContext : DbContext
+    public class CineScopeDbContext : IdentityDbContext<IdentityUser>
     {
         public CineScopeDbContext(DbContextOptions<CineScopeDbContext> options)
             : base(options)

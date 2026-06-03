@@ -1,71 +1,46 @@
 ﻿@model IEnumerable<CineScope.Models.Movie>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filmer";
 }
 
-<h1>Index</h1>
+<div class="cs-page-header">
+    <h1>Filmer</h1>
+    <a asp-action="Create" class="cs-btn-red">
+        + Lägg till film
+    </a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PosterUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PosterUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="cs-movie-grid">
+    @foreach (var movie in Model)
+    {
+        <div class="cs-movie-card">
+
+            <!-- Poster -->
+            <div class="cs-poster">
+                <img src="@movie.PosterUrl" alt="@movie.Title"
+                     onerror="this.src='/img/no-poster.jpg'" />
+                <div class="cs-rating-badge">
+                    ★ @movie.Rating
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="cs-card-body">
+                <h3 class="cs-card-title">@movie.Title</h3>
+                <div class="cs-card-meta">
+                    <span class="cs-genre">@movie.Genre</span>
+                    <span>@movie.ReleaseYear</span>
+                    <span>@movie.Duration min</span>
+                </div>
+                <p class="cs-card-desc">@movie.Description</p>
+
+                <div class="cs-card-actions">
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="cs-btn-red">Detaljer</a>
+                    <a asp-action="Edit" asp-route-id="@movie.Id" class="cs-btn-outline">Redigera</a>
+                    <a asp-action="Delete" asp-route-id="@movie.Id" class="cs-btn-outline">Ta bort</a>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

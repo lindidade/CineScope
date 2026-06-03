@@ -1,0 +1,292 @@
+﻿/* =============================================
+   CINESCOPE — egna färger & design
+   ============================================= */
+
+/* --- Färgvariabler --- */
+:root {
+    --cs-dark: #003049; /* Mörkblå — navbar, bakgrund */
+    --cs-red: #D62828; /* Röd — knappar, accenter */
+    --cs-orange: #F77F00; /* Orange — hover, badges */
+    --cs-yellow: #FCBF49; /* Gul — stjärnor, ratings */
+    --cs-text: #F4F4F4; /* Ljus text */
+    --cs-text-muted: #aaaaaa;
+    --cs-bg: #001f33; /* Lite mörkare bakgrund */
+    --cs-card-bg: #00243d; /* Filmkortens bakgrund */
+}
+
+/* --- Grundläggande reset --- */
+body {
+    background-color: var(--cs-bg);
+    color: var(--cs-text);
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.cs-navbar {
+    background-color: var(--cs-dark);
+    border-bottom: 3px solid var(--cs-red);
+    padding: 0 1.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.cs-navbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Logo */
+.cs-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--cs-text);
+    text-decoration: none;
+}
+
+    .cs-logo span {
+        color: var(--cs-red);
+    }
+
+    .cs-logo:hover {
+        color: var(--cs-text);
+        text-decoration: none;
+    }
+
+/* Nav-länkar */
+.cs-nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.25rem;
+}
+
+    .cs-nav-links a {
+        color: var(--cs-text-muted);
+        text-decoration: none;
+        padding: 0.4rem 0.85rem;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+        .cs-nav-links a:hover {
+            color: var(--cs-text);
+            background-color: rgba(255,255,255,0.08);
+        }
+
+/* Sökfält */
+.cs-search-form {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 0.35rem 0.9rem;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+    .cs-search-form i {
+        color: var(--cs-text-muted);
+        font-size: 14px;
+    }
+
+    .cs-search-form input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--cs-text);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        width: 180px;
+    }
+
+        .cs-search-form input::placeholder {
+            color: var(--cs-text-muted);
+        }
+
+/* =============================================
+   HUVUDINNEHÅLL
+   ============================================= */
+.cs-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.cs-footer {
+    background-color: var(--cs-dark);
+    border-top: 3px solid var(--cs-red);
+    color: var(--cs-text-muted);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    font-size: 14px;
+}
+/* =============================================
+   FILMKORT
+   ============================================= */
+
+.cs-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+    .cs-page-header h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        color: var(--cs-text);
+    }
+
+.cs-movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.cs-movie-card {
+    background-color: var(--cs-card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .cs-movie-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        border-color: var(--cs-orange);
+    }
+
+.cs-poster {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+}
+
+    .cs-poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+    }
+
+.cs-movie-card:hover .cs-poster img {
+    transform: scale(1.05);
+}
+
+.cs-rating-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0,0,0,0.75);
+    color: var(--cs-yellow);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+}
+
+.cs-card-body {
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cs-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cs-text);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cs-card-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--cs-text-muted);
+    flex-wrap: wrap;
+}
+
+.cs-genre {
+    background: var(--cs-red);
+    color: #fff;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cs-card-desc {
+    font-size: 13px;
+    color: var(--cs-text-muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+.cs-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+
+.cs-btn-red {
+    background: var(--cs-red);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+    .cs-btn-red:hover {
+        background: var(--cs-orange);
+        color: #fff;
+    }
+
+.cs-btn-outline {
+    background: transparent;
+    color: var(--cs-text-muted);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.35rem 0.9rem;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+    .cs-btn-outline:hover {
+        border-color: var(--cs-orange);
+        color: var(--cs-orange);
+    }

@@ -8,9 +8,12 @@
 
 <div class="cs-page-header">
     <h1>Filmer</h1>
-    <a asp-action="Create" class="cs-btn-red">
-        + Lägg till film
-    </a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="cs-btn-red">
+            + Lägg till film
+        </a>
+    }
 </div>
 
 <!-- Genrefilter -->
@@ -49,8 +52,11 @@
                 <p class="cs-card-desc">@movie.Description</p>
                 <div class="cs-card-actions">
                     <a asp-action="Details" asp-route-id="@movie.Id" class="cs-btn-red">Detaljer</a>
-                    <a asp-action="Edit" asp-route-id="@movie.Id" class="cs-btn-outline">Redigera</a>
-                    <a asp-action="Delete" asp-route-id="@movie.Id" class="cs-btn-outline">Ta bort</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@movie.Id" class="cs-btn-outline">Redigera</a>
+                        <a asp-action="Delete" asp-route-id="@movie.Id" class="cs-btn-outline">Ta bort</a>
+                    }
                 </div>
             </div>
         </div>

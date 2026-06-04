@@ -43,4 +43,26 @@ app.MapControllerRoute(
 
 app.MapRazorPages(); // ← NY RAD (Identity använder Razor Pages)
 
+// Skapa roller och admin-användare vid start
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    // Skapa roller
+    string[] roles = { "Admin", "Member", "Guest" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+
+    // Ge admin-rollen till ditt konto
+    var adminUser = await userManager.FindByEmailAsync("admin@cinescope.com");
+    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+        await userManager.AddToRoleAsync(adminUser, "Admin");
+}
+
+app.Run();
+
 app.Run();

@@ -1,60 +1,105 @@
 ﻿@model CineScope.Models.Movie
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
 }
 
-<h1>Details</h1>
+<div class="cs-details-page">
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PosterUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <!-- Film info -->
+    <div class="cs-details-hero">
+        <div class="cs-details-poster">
+            <img src="@Model.PosterUrl" alt="@Model.Title"
+                 onerror="this.src='/img/no-poster.jpg'" />
+        </div>
+        <div class="cs-details-info">
+            <h1 class="cs-details-title">@Model.Title</h1>
+            <div class="cs-details-meta">
+                <span class="cs-genre">@Model.Genre</span>
+                <span>@Model.ReleaseYear</span>
+                <span>@Model.Duration min</span>
+                <span style="color:var(--cs-yellow);">★ @Model.Rating</span>
+            </div>
+            <p class="cs-details-desc">@Model.Description</p>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <div style="display:flex; gap:0.75rem; margin-top:1rem;">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="cs-btn-red">Redigera</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="cs-btn-outline">Ta bort</a>
+                </div>
+            }
+
+            <a asp-action="Index" class="cs-back-link">← Tillbaka till filmer</a>
+        </div>
+    </div>
+
+    <!-- Recensioner -->
+    <div class="cs-reviews-section">
+        <h2 class="cs-reviews-title">Recensioner (@Model.Reviews.Count)</h2>
+
+        <!-- Skriv recension (endast inloggade) -->
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <div class="cs-review-form">
+                <h3>Skriv en recension</h3>
+                <form asp-controller="Reviews" asp-action="Create" method="post">
+                    <input type="hidden" name="movieId" value="@Model.Id" />
+
+                    <div class="cs-form-group">
+                        <label>Betyg (1-10)</label>
+                        <input type="number" name="rating" min="1" max="10"
+                               class="cs-input" required />
+                    </div>
+
+                    <div class="cs-form-group">
+                        <label>Kommentar</label>
+                        <textarea name="comment" rows="3"
+                                  class="cs-input" placeholder="Vad tyckte du om filmen?"
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit" class="cs-btn-red">Skicka recension</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <p style="color:var(--cs-text-muted);">
+                <a asp-area="Identity" asp-page="/Account/Login" style="color:var(--cs-red);">Logga in</a>
+                för att skriva en recension.
+            </p>
+        }
+
+        <!-- Lista recensioner -->
+        @if (Model.Reviews.Any())
+        {
+            @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt))
+            {
+                <div class="cs-review-card">
+                    <div class="cs-review-header">
+                        <span class="cs-review-user">👤 @review.User?.Email</span>
+                        <span class="cs-review-rating">★ @review.Rating/10</span>
+                        <span class="cs-review-date">@review.CreatedAt.ToString("yyyy-MM-dd")</span>
+                    </div>
+                    <p class="cs-review-comment">@review.Comment</p>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <form asp-controller="Reviews" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@review.Id" />
+                            <input type="hidden" name="movieId" value="@Model.Id" />
+                            <button type="submit" class="cs-btn-outline"
+                                    style="font-size:12px; padding:0.2rem 0.6rem;">
+                                Ta bort
+                            </button>
+                        </form>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <p style="color:var(--cs-text-muted);">Inga recensioner ännu. Var först!</p>
+        }
+    </div>
 </div>

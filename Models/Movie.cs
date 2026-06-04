@@ -10,5 +10,7 @@
         public int Duration { get; set; }
         public string PosterUrl { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

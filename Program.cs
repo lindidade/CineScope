@@ -1,17 +1,21 @@
 using CineScope.Data;
+using CineScope.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddHttpClient<TmdbService>();
 
 builder.Services.AddDbContext<CineScopeDbContext>(options =>
     options.UseSqlServer(builder.Configuration
         .GetConnectionString("DefaultConnection")));
 
-// Identity
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -21,7 +25,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -31,7 +35,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseAuthentication(); // ← NY RAD
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -41,15 +45,15 @@ app.MapControllerRoute(
     pattern: "{controller=Movies}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-app.MapRazorPages(); // ← NY RAD (Identity använder Razor Pages)
+app.MapRazorPages(); 
 
-// Skapa roller och admin-användare vid start
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    // Skapa roller
+    
     string[] roles = { "Admin", "Member", "Guest" };
     foreach (var role in roles)
     {
@@ -57,7 +61,7 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(role));
     }
 
-    // Ge admin-rollen till ditt konto
+    
     var adminUser = await userManager.FindByEmailAsync("admin@cinescope.com");
     if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
         await userManager.AddToRoleAsync(adminUser, "Admin");

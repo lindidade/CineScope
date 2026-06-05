@@ -1,0 +1,115 @@
+﻿@model CineScope.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Analytics";
+}
+
+<div class="container mt-4">
+    <p class="text-uppercase tracking-wider text-xs font-semibold text-gray-400 mb-1" style="color: var(--cs-text-muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+        Admin Panel
+    </p>
+    <h1 class="mb-4" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 1px;">
+        Admin Analytics
+    </h1>
+
+    
+    <div class="row g-4 mb-5">
+        
+        <div class="col-md-4">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px;">
+                <p class="text-uppercase text-xs mb-2" style="color: var(--cs-text-muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Total Movies
+                </p>
+                <h3 class="display-5 font-bold m-0" style="font-family: 'Bebas Neue', sans-serif;">
+                    @Model.TotalMovies
+                </h3>
+            </div>
+        </div>
+
+        
+        <div class="col-md-4">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px;">
+                <p class="text-uppercase text-xs mb-2" style="color: var(--cs-text-muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Registered Users
+                </p>
+                <h3 class="display-5 font-bold m-0" style="font-family: 'Bebas Neue', sans-serif;">
+                    @Model.TotalUsers
+                </h3>
+            </div>
+        </div>
+
+        
+        <div class="col-md-4">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px;">
+                <p class="text-uppercase text-xs mb-2" style="color: var(--cs-text-muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Total Reviews
+                </p>
+                <h3 class="display-5 font-bold m-0" style="font-family: 'Bebas Neue', sans-serif;">
+                    @Model.TotalReviews
+                </h3>
+            </div>
+        </div>
+
+        
+        <div class="col-md-4">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px;">
+                <p class="text-uppercase text-xs mb-2" style="color: var(--cs-text-muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+                    Platform Avg Rating
+                </p>
+                <h3 class="display-5 font-bold m-0" style="font-family: 'Bebas Neue', sans-serif; color: #ffc107;">
+                    ★ @Model.AverageRating
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row g-4">
+        
+        <div class="col-md-6">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px; min-height: 350px;">
+                <h3 class="h4 mb-4" style="font-weight: 700;">Recent Activity</h3>
+                <ul class="list-unstyled">
+                    @foreach (var movie in Model.RecentMovies)
+                    {
+                        <li class="pb-3 mb-3" style="border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem;">
+                            🎬 New movie added: <strong>@movie.Title</strong> (@movie.ReleaseYear)
+                        </li>
+                    }
+                    @foreach (var review in Model.RecentReviews)
+                    {
+                        <li class="pb-3 mb-3" style="border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem;">
+                            💬 New review for <strong>@review.Movie?.Title</strong>: Rating <span style="color: #ffc107;">★ @review.Rating/10</span>
+                        </li>
+                    }
+                    @if (!Model.RecentMovies.Any() && !Model.RecentReviews.Any())
+                    {
+                        <p style="color: var(--cs-text-muted);">No recent activity recorded.</p>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="col-md-6">
+            <div class="p-4" style="background-color: var(--cs-card-bg); border: 1px solid var(--cs-border-color); border-radius: 8px; min-height: 350px;">
+                <h3 class="h4 mb-4" style="font-weight: 700;">Popular Genres</h3>
+                <div class="d-flex flex-column gap-3">
+                    @foreach (var genre in Model.TopGenres)
+                    {
+                        <div class="d-flex justify-content-between align-items-center pb-2" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <span class="font-semibold">@genre.Key</span>
+                            <span class="badge" style="background-color: rgba(255,255,255,0.05); color: #fff; font-size: 0.85rem;">
+                                @genre.Value @(genre.Value == 1 ? "movie" : "movies")
+                            </span>
+                        </div>
+                    }
+                    @if (!Model.TopGenres.Any())
+                    {
+                        <p style="color: var(--cs-text-muted);">No genres available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

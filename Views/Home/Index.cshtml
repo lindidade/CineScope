@@ -1,8 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="background: linear-gradient(rgba(0,0,0,0.6), rgba(11,29,43,1)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop') center/cover no-repeat; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; border-radius: 8px; margin-top: 1rem;">
+    <h1 style="font-size: 3.5rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;">
+        CineScope
+    </h1>
+    <p style="font-size: 1.5rem; color: var(--cs-text-muted); margin-bottom: 2rem; font-weight: 300;">
+        Your Personal Movie Database
+    </p>
+    <div>
+        <a asp-controller="Movies" asp-action="Index" class="cs-btn-red" style="padding: 0.8rem 2rem; font-size: 1.1rem; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            Explore Movies
+        </a>
+    </div>
 </div>

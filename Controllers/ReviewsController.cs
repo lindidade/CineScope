@@ -18,7 +18,7 @@ namespace CineScope.Controllers
             _userManager = userManager;
         }
 
-        // POST: Reviews/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int movieId, int rating, string comment)
@@ -43,7 +43,7 @@ namespace CineScope.Controllers
             return RedirectToAction("Details", "Movies", new { id = movieId });
         }
 
-        // POST: Reviews/Delete
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, int movieId)

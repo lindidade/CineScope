@@ -1,8 +1,4 @@
-﻿/* =============================================
-   CINESCOPE — egna färger & design
-   ============================================= */
-
-/* --- Färgvariabler --- */
+﻿
 :root {
     --cs-dark: #003049; /* Mörkblå — navbar, bakgrund */
     --cs-red: #D62828; /* Röd — knappar, accenter */
@@ -21,9 +17,7 @@ body {
     margin: 0;
 }
 
-/* =============================================
-   NAVBAR
-   ============================================= */
+
 .cs-navbar {
     background-color: var(--cs-dark);
     border-bottom: 3px solid var(--cs-red);
@@ -45,7 +39,6 @@ body {
     margin: 0 auto;
 }
 
-/* Logo */
 .cs-logo {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.8rem;
@@ -63,7 +56,6 @@ body {
         text-decoration: none;
     }
 
-/* Nav-länkar */
 .cs-nav-links {
     display: flex;
     list-style: none;
@@ -123,9 +115,7 @@ body {
     padding: 2rem 1.5rem;
 }
 
-/* =============================================
-   FOOTER
-   ============================================= */
+
 .cs-footer {
     background-color: var(--cs-dark);
     border-top: 3px solid var(--cs-red);
@@ -135,9 +125,7 @@ body {
     margin-top: 3rem;
     font-size: 14px;
 }
-/* =============================================
-   FILMKORT
-   ============================================= */
+
 
 .cs-page-header {
     display: flex;
@@ -285,9 +273,7 @@ body {
         border-color: var(--cs-orange);
         color: var(--cs-orange);
     }
-/* =============================================
-   GENREFILTER
-   ============================================= */
+
 .cs-filter-bar {
     display: flex;
     gap: 0.5rem;
@@ -317,9 +303,7 @@ body {
         border-color: var(--cs-red);
         color: #fff;
     }
-/* =============================================
-   DETAILS PAGE
-   ============================================= */
+
 .cs-details-page {
     max-width: 900px;
     margin: 0 auto;
@@ -385,7 +369,7 @@ body {
         color: var(--cs-orange);
     }
 
-/* Reviews */
+
 .cs-reviews-section {
     border-top: 2px solid rgba(255,255,255,0.08);
     padding-top: 2rem;

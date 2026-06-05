@@ -66,7 +66,7 @@ namespace CineScope.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Edit/5
+        // GET: Movies/Edit/
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,7 +78,7 @@ namespace CineScope.Controllers
             return View(movie);
         }
 
-        // POST: Movies/Edit/5
+        // POST: Movies/Edit/
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -103,7 +103,7 @@ namespace CineScope.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Delete/5
+        // GET: Movies/Delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -115,7 +115,7 @@ namespace CineScope.Controllers
             return View(movie);
         }
 
-        // POST: Movies/Delete/5
+        // POST: Movies/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

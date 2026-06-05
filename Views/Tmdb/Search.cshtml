@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Sök från TMDB";
+}
+
+<div class="cs-details-page">
+    <h1 class="cs-page-title">Sök film från TMDB</h1>
+    <p style="color:var(--cs-text-muted); margin-bottom:2rem;">
+        Sök och importera filmer direkt från The Movie Database.
+    </p>
+
+    <form asp-action="Search" method="post">
+        <div style="display:flex; gap:1rem; max-width:500px;">
+            <input type="text" name="query" placeholder="Sök filmtitel..."
+                   class="cs-input" style="flex:1;" required />
+            <button type="submit" class="cs-btn-red">Sök</button>
+        </div>
+    </form>
+</div>

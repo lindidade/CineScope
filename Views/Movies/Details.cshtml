@@ -5,7 +5,7 @@
 
 <div class="cs-details-page">
 
-    <!-- Film info -->
+    
     <div class="cs-details-hero">
         <div class="cs-details-poster">
             <img src="@Model.PosterUrl" alt="@Model.Title"
@@ -24,53 +24,53 @@
             @if (User.IsInRole("Admin"))
             {
                 <div style="display:flex; gap:0.75rem; margin-top:1rem;">
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="cs-btn-red">Redigera</a>
-                    <a asp-action="Delete" asp-route-id="@Model.Id" class="cs-btn-outline">Ta bort</a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="cs-btn-red">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="cs-btn-outline">Delete</a>
                 </div>
             }
 
-            <a asp-action="Index" class="cs-back-link">← Tillbaka till filmer</a>
+            <a asp-action="Index" class="cs-back-link">← Back to movies</a>
         </div>
     </div>
 
-    <!-- Recensioner -->
+    
     <div class="cs-reviews-section">
-        <h2 class="cs-reviews-title">Recensioner (@Model.Reviews.Count)</h2>
+        <h2 class="cs-reviews-title">Reviews (@Model.Reviews.Count)</h2>
 
-        <!-- Skriv recension (endast inloggade) -->
+        
         @if (User.Identity!.IsAuthenticated)
         {
             <div class="cs-review-form">
-                <h3>Skriv en recension</h3>
+                <h3>Write a review</h3>
                 <form asp-controller="Reviews" asp-action="Create" method="post">
                     <input type="hidden" name="movieId" value="@Model.Id" />
 
                     <div class="cs-form-group">
-                        <label>Betyg (1-10)</label>
+                        <label>Rating (1-10)</label>
                         <input type="number" name="rating" min="1" max="10"
                                class="cs-input" required />
                     </div>
 
                     <div class="cs-form-group">
-                        <label>Kommentar</label>
+                        <label>Comment</label>
                         <textarea name="comment" rows="3"
-                                  class="cs-input" placeholder="Vad tyckte du om filmen?"
+                                  class="cs-input" placeholder="What did you think of the movie?"
                                   required></textarea>
                     </div>
 
-                    <button type="submit" class="cs-btn-red">Skicka recension</button>
+                    <button type="submit" class="cs-btn-red">Send review</button>
                 </form>
             </div>
         }
         else
         {
             <p style="color:var(--cs-text-muted);">
-                <a asp-area="Identity" asp-page="/Account/Login" style="color:var(--cs-red);">Logga in</a>
-                för att skriva en recension.
+                <a asp-area="Identity" asp-page="/Account/Login" style="color:var(--cs-red);">Login</a>
+                to write a review.
             </p>
         }
 
-        <!-- Lista recensioner -->
+       
         @if (Model.Reviews.Any())
         {
             @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt))
@@ -90,7 +90,7 @@
                             <input type="hidden" name="movieId" value="@Model.Id" />
                             <button type="submit" class="cs-btn-outline"
                                     style="font-size:12px; padding:0.2rem 0.6rem;">
-                                Ta bort
+                                Delete
                             </button>
                         </form>
                     }
@@ -99,7 +99,7 @@
         }
         else
         {
-            <p style="color:var(--cs-text-muted);">Inga recensioner ännu. Var först!</p>
+            <p style="color:var(--cs-text-muted);">Be the first to review this movie!</p>
         }
     </div>
 </div>

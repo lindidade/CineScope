@@ -17,11 +17,9 @@ namespace CineScope.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        // Koppling till film
         public int MovieId { get; set; }
         public Movie? Movie { get; set; }
 
-        // Koppling till användare
         public string UserId { get; set; } = "";
         public IdentityUser? User { get; set; }
     }

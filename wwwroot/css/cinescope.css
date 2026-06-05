@@ -14,7 +14,6 @@
     --cs-card-bg: #00243d; /* Filmkortens bakgrund */
 }
 
-/* --- Grundläggande reset --- */
 body {
     background-color: var(--cs-bg);
     color: var(--cs-text);
@@ -88,7 +87,6 @@ body {
             background-color: rgba(255,255,255,0.08);
         }
 
-/* Sökfält */
 .cs-search-form {
     display: flex;
     align-items: center;
@@ -119,9 +117,6 @@ body {
             color: var(--cs-text-muted);
         }
 
-/* =============================================
-   HUVUDINNEHÅLL
-   ============================================= */
 .cs-main {
     max-width: 1400px;
     margin: 0 auto;

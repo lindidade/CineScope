@@ -49,9 +49,6 @@
                     <span>@movie.ReleaseYear</span>
                     <span>@movie.Duration min</span>
                 </div>
-                <p class="cs-card-desc">@movie.Description</p>
-                <div class="cs-card-actions">
-                    <a asp-action="Details" asp-route-id="@movie.Id" class="cs-btn-red">Detaljer</a>
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@movie.Id" class="cs-btn-outline">Redigera</a>

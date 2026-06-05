@@ -31,7 +31,7 @@ A full-stack web application for movie discovery, built with ASP.NET Core MVC.
 ⚙️ Getting Started
 
 Prerequisites
-- Visual Studio 2022
+- Visual Studio 2026
 - SQL Server / LocalDB
 - .NET 10 SDK
 
